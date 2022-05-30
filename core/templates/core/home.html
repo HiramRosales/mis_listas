@@ -1,0 +1,15 @@
+{% load bootstrap5 %}
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+<h1>Mis Listas</h1>
+<ul>
+    <li><a href="/familia/">Familia</a></li>
+    <li><a href="/mascotas/">Mascotas</a></li>
+    <li><a href="/carros/">Carros</a></li>
+</ul>
+

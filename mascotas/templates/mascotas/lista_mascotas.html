@@ -1,0 +1,60 @@
+{% extends "mascotas/index.html" %}
+
+{% load bootstrap5 %}
+
+
+{% block cuerpo %}
+<div class="container">    
+
+  {% if resultados_busqueda %}
+    <h1>Resultados de la busqueda</h1>
+  {%endif%}
+  
+  <div class="row">
+    <div class="col">
+      {% url 'agregar_mascotas' as agregar_mascotas_url %}
+      {% url 'buscar_mascotas' as buscar_mascotas_url %}
+      {% bootstrap_button "Agregar" button_class="btn-success" button_type="link" href=agregar_mascotas_url %} 
+      {% bootstrap_button "Buscar" button_class="btn-success" button_type="link" href=buscar_mascotas_url %}  
+    <div>
+  <div>
+
+  <div class="row">
+    <div class="col">
+        {% if mascotas %}
+        <table class="table">
+            <thead>
+                <th scope="col">Identificador</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Animal</th>
+                <th scope="col">Edad</th>
+                <th scope="col">Peso</th>
+                <th scope="col">Acciones</th>
+            </thead>
+        
+            {% for m in mascotas %}
+            <tbody>
+                <tr>
+                    <th scope="row">{{m.id}} </th>
+                    <td> {{m.nombre}} </td>
+                    <td> {{m.tipo}} </td>
+                    <td> {{m.edad}} </td>
+                    <td> {{m.peso}}</td>
+                    <td>
+                      {% url 'borrar_mascotas' identificador=m.id as borrar_mascotas_url %}
+                      {% url 'actualizar_mascotas' identificador=m.id as actualizar_mascotas_url %} 
+                      {% bootstrap_button "Borrar" size="sm" button_class="btn-danger" button_type="link" href=borrar_mascotas_url %}
+                      {% bootstrap_button "Actualizar" size="sm" button_class="btn-warning" button_type="link" href=actualizar_mascotas_url %}
+
+                    </td>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+        {% else %}
+            <p>No tienes mascotas cargadas</p>
+        {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "carros/index.html" %}
+
+{% load bootstrap5 %}
+
+
+{% block cuerpo %}
+<div class="container">    
+
+  {% if resultados_busqueda %}
+    <h1>Resultados de la busqueda</h1>
+  {%endif%}
+  
+  <div class="row">
+    <div class="col">
+      {% url 'agregar_carro' as agregar_carro_url %}
+      {% url 'buscar_carro' as buscar_carro_url %}
+      {% bootstrap_button "Agregar" button_class="btn-success" button_type="link" href=agregar_carro_url %} 
+      {% bootstrap_button "Buscar" button_class="btn-success" button_type="link" href=buscar_carro_url %}  
+    <div>
+  <div>
+
+  <div class="row">
+    <div class="col">
+        {% if carros %}
+        <table class="table">
+            <thead>
+                <th scope="col">Identificador</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Marca</th>
+                <th scope="col">Año Creacion</th>
+                <th scope="col">Litros</th>
+                <th scope="col">Acciones</th>
+            </thead>
+        
+            {% for c in carros %}
+            <tbody>
+                <tr>
+                    <th scope="row">{{c.id}} </th>
+                    <td> {{c.nombre}} </td>
+                    <td> {{c.marca}} </td>
+                    <td> {{c.ano_creacion}} </td>
+                    <td> {{c.cap_lts}} </td>
+                    <td>
+                      {% url 'borrar_carro' identificador=c.id as borrar_carro_url %}
+                      {% url 'actualizar_carro' identificador=c.id as actualizar_carro_url %} 
+                      {% bootstrap_button "Borrar" size="sm" button_class="btn-danger" button_type="link" href=borrar_carro_url %}
+                      {% bootstrap_button "Actualizar" size="sm" button_class="btn-warning" button_type="link" href=actualizar_carro_url %}
+
+                    </td>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+        {% else %}
+            <p>No tienes carros cargados</p>
+        {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
